@@ -158,14 +158,16 @@ jobs:
       - name: Verify main image
         uses: EyeCantCU/cosign-action/verify@v0.3.0
         with:
-          containers: ${{ env.SOURCE_IMAGE }}:${{ matrix.fedora_version }}
+          containers: ${{ matrix.base_image_name }}-${{ matrix.base_image_flavor }}:${{ matrix.fedora_version }}
+          pubkey: https://raw.githubusercontent.com/apoordev/${{ matrix.base_image_flavor }}/main/cosign.pub
           registry: ${{ env.IMAGE_REGISTRY }}
 
       - name: Verify akmods-nvidia image
         uses: EyeCantCU/cosign-action/verify@v0.3.0
         with:
-          containers: akmods-nvidia:${{ matrix.kernel_flavor}}-${{ matrix.fedora_version }}
-          registry: ${{ env.IMAGE_REGISTRY }}
+          containers: akmods-${{ matrix.target_nvidia_flavor }}:${{ matrix.kernel_flavor}}-${{ matrix.fedora_version }}-${{ matrix.kernel_version }}
+          pubkey: https://raw.githubusercontent.com/ublue-os/akmods/main/cosign.pub
+          registry: ghcr.io/ublue-os
 
       - name: Get current version
         id: labels
@@ -199,7 +201,7 @@ jobs:
             # pull the base image used for FROM in containerfile so
             # we can retry on that unfortunately common failure case
             podman pull ${{ env.IMAGE_REGISTRY }}/${{ env.SOURCE_IMAGE }}:${{ matrix.fedora_version }}
-            podman pull ${{ env.IMAGE_REGISTRY }}/akmods-nvidia:${{ matrix.kernel_flavor }}-${{ matrix.fedora_version }}
+            podman pull ghcr.io/ublue-os/akmods-nvidia:${{ matrix.kernel_flavor }}-${{ matrix.fedora_version }}
             podman pull ${{ env.IMAGE_REGISTRY }}/${{ matrix.kernel_flavor}}-kernel:${{ env.KERNEL_VERSION }}
 
       # Build metadata

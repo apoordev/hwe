@@ -1,6 +1,6 @@
 ARG IMAGE_NAME="${IMAGE_NAME:-silverblue}"
 ARG SOURCE_IMAGE="${SOURCE_IMAGE:-silverblue-main}"
-ARG SOURCE_ORG="${SOURCE_ORG:-ublue-os}"
+ARG SOURCE_ORG="${SOURCE_ORG:-apoordev}"
 ARG BASE_IMAGE="ghcr.io/${SOURCE_ORG}/${SOURCE_IMAGE}"
 ARG FEDORA_MAJOR_VERSION="${FEDORA_MAJOR_VERSION:-40}"
 ARG KERNEL_FLAVOR="${KERNEL_FLAVOR:-main}"
@@ -15,7 +15,7 @@ FROM ${BASE_IMAGE}:${FEDORA_MAJOR_VERSION} AS main
 ARG FEDORA_MAJOR_VERSION="${FEDORA_MAJOR_VERSION:-40}"
 ARG KERNEL_FLAVOR="${KERNEL_FLAVOR:-main}"
 ARG IMAGE_NAME="${IMAGE_NAME:-silverblue}"
-ARG IMAGE_VENDOR="${IMAGE_VENDOR:-ublue-os}"
+ARG IMAGE_VENDOR="${IMAGE_VENDOR:-apoordev}"
 ARG KERNEL_VERSION="${KERNEL_VERSION:-6.9.7-200.fc40.x86_64}"
 
 RUN --mount=type=cache,dst=/var/cache/rpm-ostree \
@@ -35,11 +35,11 @@ FROM ghcr.io/ublue-os/akmods-nvidia:${KERNEL_FLAVOR}-${FEDORA_MAJOR_VERSION} AS 
 
 FROM main AS nvidia
 
-ARG SOURCE_ORG="${SOURCE_ORG:-ublue-os}"
+ARG SOURCE_ORG="${SOURCE_ORG:-apoordev}"
 ARG FEDORA_MAJOR_VERSION="${FEDORA_MAJOR_VERSION:-40}"
 ARG KERNEL_FLAVOR="${KERNEL_FLAVOR:-main}"
 ARG IMAGE_NAME="${IMAGE_NAME:-silverblue}"
-ARG IMAGE_VENDOR="${IMAGE_VENDOR:-ublue-os}"
+ARG IMAGE_VENDOR="${IMAGE_VENDOR:-apoordev}"
 
 RUN --mount=type=cache,dst=/var/cache/rpm-ostree \
     --mount=type=bind,from=ctx,src=/,dst=/ctx \

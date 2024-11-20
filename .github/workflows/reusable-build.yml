@@ -165,8 +165,7 @@ jobs:
       - name: Verify akmods-nvidia image
         uses: EyeCantCU/cosign-action/verify@v0.3.0
         with:
-          containers: akmods-${{ matrix.target_nvidia_flavor }}:${{ matrix.kernel_flavor}}-${{ matrix.fedora_version }}-${{ matrix.kernel_version }}
-          pubkey: https://raw.githubusercontent.com/ublue-os/akmods/main/cosign.pub
+          containers: akmods-nvidia:${{ matrix.kernel_flavor}}-${{ matrix.fedora_version }}
           registry: ghcr.io/ublue-os
 
       - name: Get current version

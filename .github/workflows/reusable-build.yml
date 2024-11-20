@@ -159,6 +159,7 @@ jobs:
         uses: EyeCantCU/cosign-action/verify@v0.3.0
         with:
           containers: ${{ env.SOURCE_IMAGE }}:${{ matrix.fedora_version }}
+          pubkey: https://raw.githubusercontent.com/apoordev/hwe/main/cosign.pub
           registry: ${{ env.IMAGE_REGISTRY }}
 
       - name: Verify akmods-nvidia image

@@ -158,8 +158,7 @@ jobs:
       - name: Verify main image
         uses: EyeCantCU/cosign-action/verify@v0.3.0
         with:
-          containers: ${{ matrix.base_image_name }}-${{ matrix.base_image_flavor }}:${{ matrix.fedora_version }}
-          pubkey: https://raw.githubusercontent.com/apoordev/hwe/main/cosign.pub
+          containers: ${{ env.SOURCE_IMAGE }}:${{ matrix.fedora_version }}
           registry: ${{ env.IMAGE_REGISTRY }}
 
       - name: Verify akmods-nvidia image
